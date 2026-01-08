@@ -103,20 +103,21 @@ export const TrendAreaChart: React.FC = () => {
                             onMouseLeave={() => setActiveIndex(null)}
                         >
                             <defs>
-                                <linearGradient id="trendBarGradient" x1="0" y1="1" x2="0" y2="0">
-                                    <stop offset="0%" stopColor="#8B5CF6" stopOpacity={0.4} />
+                                {/* Default gradient */}
+                                <linearGradient id="trendDefaultGradient" x1="0" y1="1" x2="0" y2="0">
+                                    <stop offset="0%" stopColor="#8B5CF6" stopOpacity={0.3} />
                                     <stop offset="100%" stopColor="#8B5CF6" stopOpacity={1} />
                                 </linearGradient>
-                                {/* Explosive violet gradient */}
-                                <linearGradient id="explosiveViolet" x1="0" y1="1" x2="0" y2="0">
-                                    <stop offset="0%" stopColor="#5B21B6" stopOpacity={1} />
+                                {/* Active gradient - brighter */}
+                                <linearGradient id="trendActiveGradient" x1="0" y1="1" x2="0" y2="0">
+                                    <stop offset="0%" stopColor="#A78BFA" stopOpacity={1} />
                                     <stop offset="50%" stopColor="#8B5CF6" stopOpacity={1} />
-                                    <stop offset="100%" stopColor="#DDD6FE" stopOpacity={0.95} />
+                                    <stop offset="100%" stopColor="#6D28D9" stopOpacity={1} />
                                 </linearGradient>
                                 {/* Dimmed gradient */}
                                 <linearGradient id="trendDimmedGradient" x1="0" y1="1" x2="0" y2="0">
-                                    <stop offset="0%" stopColor="#D1D5DB" stopOpacity={0.3} />
-                                    <stop offset="100%" stopColor="#E5E7EB" stopOpacity={0.6} />
+                                    <stop offset="0%" stopColor="#E5E7EB" stopOpacity={0.3} />
+                                    <stop offset="100%" stopColor="#E5E7EB" stopOpacity={1} />
                                 </linearGradient>
                             </defs>
                             <XAxis
@@ -132,23 +133,22 @@ export const TrendAreaChart: React.FC = () => {
                                 radius={[2, 2, 0, 0]}
                                 maxBarSize={20}
                             >
-                                {data.map((_entry, index) => (
-                                    <Cell
-                                        key={`cell-${index}`}
-                                        fill="transparent"
-                                        style={{
-                                            fill: activeIndex === index
-                                                ? 'url(#explosiveViolet)'
-                                                : activeIndex !== null
-                                                    ? 'url(#trendDimmedGradient)'
-                                                    : 'url(#trendBarGradient)',
-                                            filter: activeIndex === index
-                                                ? 'drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.9)) drop-shadow(0px 0px 4px rgba(139, 92, 246, 0.6))'
-                                                : 'none',
-                                            transition: 'all 0.4s ease-in-out',
-                                        }}
-                                    />
-                                ))}
+                                {data.map((_entry, index) => {
+                                    const isActive = activeIndex === index;
+                                    const isDimmed = activeIndex !== null && activeIndex !== index;
+                                    return (
+                                        <Cell
+                                            key={`cell-${index}`}
+                                            fill={isActive ? 'url(#trendActiveGradient)' : isDimmed ? 'url(#trendDimmedGradient)' : 'url(#trendDefaultGradient)'}
+                                            style={{
+                                                filter: isActive ? 'drop-shadow(0px 0px 8px rgba(139, 92, 246, 0.6))' : 'none',
+                                                transform: isActive ? 'scaleX(1.1)' : 'scaleX(1)',
+                                                transformOrigin: 'center bottom',
+                                                transition: 'all 0.3s ease-in-out',
+                                            }}
+                                        />
+                                    );
+                                })}
                             </Bar>
                         </BarChart>
                     ) : (

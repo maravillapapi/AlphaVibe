@@ -89,14 +89,30 @@ export const TeamBarChart: React.FC = () => {
                             onMouseLeave={() => setActiveIndex(null)}
                         >
                             <defs>
-                                {/* Solid gradients */}
-                                <linearGradient id="teamAGradient" x1="0" y1="1" x2="0" y2="0">
-                                    <stop offset="0%" stopColor="#1D4ED8" stopOpacity={1} />
+                                {/* Team A gradients */}
+                                <linearGradient id="teamADefaultGradient" x1="0" y1="1" x2="0" y2="0">
+                                    <stop offset="0%" stopColor="#3B82F6" stopOpacity={0.3} />
                                     <stop offset="100%" stopColor="#3B82F6" stopOpacity={1} />
                                 </linearGradient>
-                                <linearGradient id="teamBGradient" x1="0" y1="1" x2="0" y2="0">
-                                    <stop offset="0%" stopColor="#C2410C" stopOpacity={1} />
+                                <linearGradient id="teamAActiveGradient" x1="0" y1="1" x2="0" y2="0">
+                                    <stop offset="0%" stopColor="#60A5FA" stopOpacity={1} />
+                                    <stop offset="50%" stopColor="#3B82F6" stopOpacity={1} />
+                                    <stop offset="100%" stopColor="#1D4ED8" stopOpacity={1} />
+                                </linearGradient>
+                                {/* Team B gradients */}
+                                <linearGradient id="teamBDefaultGradient" x1="0" y1="1" x2="0" y2="0">
+                                    <stop offset="0%" stopColor="#F97316" stopOpacity={0.3} />
                                     <stop offset="100%" stopColor="#F97316" stopOpacity={1} />
+                                </linearGradient>
+                                <linearGradient id="teamBActiveGradient" x1="0" y1="1" x2="0" y2="0">
+                                    <stop offset="0%" stopColor="#FB923C" stopOpacity={1} />
+                                    <stop offset="50%" stopColor="#F97316" stopOpacity={1} />
+                                    <stop offset="100%" stopColor="#C2410C" stopOpacity={1} />
+                                </linearGradient>
+                                {/* Dimmed gradient */}
+                                <linearGradient id="teamDimmedGradient" x1="0" y1="1" x2="0" y2="0">
+                                    <stop offset="0%" stopColor="#E5E7EB" stopOpacity={0.3} />
+                                    <stop offset="100%" stopColor="#E5E7EB" stopOpacity={1} />
                                 </linearGradient>
                             </defs>
                             <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
@@ -115,16 +131,22 @@ export const TeamBarChart: React.FC = () => {
                                 radius={[4, 4, 0, 0]}
                                 barSize={12}
                             >
-                                {data.map((_entry: any, index: number) => (
-                                    <Cell
-                                        key={`cellA - ${index} `}
-                                        fill={activeIndex === index ? '#1D4ED8' : activeIndex !== null ? '#D1D5DB' : 'url(#teamAGradient)'}
-                                        style={{
-                                            filter: activeIndex === index ? 'drop-shadow(0px 0px 4px rgba(59, 130, 246, 0.5))' : 'none',
-                                            transition: 'all 0.3s ease-in-out',
-                                        }}
-                                    />
-                                ))}
+                                {data.map((_entry: any, index: number) => {
+                                    const isActive = activeIndex === index;
+                                    const isDimmed = activeIndex !== null && activeIndex !== index;
+                                    return (
+                                        <Cell
+                                            key={`cellA-${index}`}
+                                            fill={isActive ? 'url(#teamAActiveGradient)' : isDimmed ? 'url(#teamDimmedGradient)' : 'url(#teamADefaultGradient)'}
+                                            style={{
+                                                filter: isActive ? 'drop-shadow(0px 0px 8px rgba(59, 130, 246, 0.6))' : 'none',
+                                                transform: isActive ? 'scaleX(1.1)' : 'scaleX(1)',
+                                                transformOrigin: 'center bottom',
+                                                transition: 'all 0.3s ease-in-out',
+                                            }}
+                                        />
+                                    );
+                                })}
                             </Bar>
                             <Bar
                                 dataKey="teamB"
@@ -132,16 +154,22 @@ export const TeamBarChart: React.FC = () => {
                                 radius={[4, 4, 0, 0]}
                                 barSize={12}
                             >
-                                {data.map((_entry: any, index: number) => (
-                                    <Cell
-                                        key={`cellB - ${index} `}
-                                        fill={activeIndex === index ? '#C2410C' : activeIndex !== null ? '#D1D5DB' : 'url(#teamBGradient)'}
-                                        style={{
-                                            filter: activeIndex === index ? 'drop-shadow(0px 0px 4px rgba(249, 115, 22, 0.5))' : 'none',
-                                            transition: 'all 0.3s ease-in-out',
-                                        }}
-                                    />
-                                ))}
+                                {data.map((_entry: any, index: number) => {
+                                    const isActive = activeIndex === index;
+                                    const isDimmed = activeIndex !== null && activeIndex !== index;
+                                    return (
+                                        <Cell
+                                            key={`cellB-${index}`}
+                                            fill={isActive ? 'url(#teamBActiveGradient)' : isDimmed ? 'url(#teamDimmedGradient)' : 'url(#teamBDefaultGradient)'}
+                                            style={{
+                                                filter: isActive ? 'drop-shadow(0px 0px 8px rgba(249, 115, 22, 0.6))' : 'none',
+                                                transform: isActive ? 'scaleX(1.1)' : 'scaleX(1)',
+                                                transformOrigin: 'center bottom',
+                                                transition: 'all 0.3s ease-in-out',
+                                            }}
+                                        />
+                                    );
+                                })}
                             </Bar>
                         </BarChart>
                     </ResponsiveContainer>

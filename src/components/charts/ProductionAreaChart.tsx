@@ -78,15 +78,21 @@ export const ProductionAreaChart: React.FC = () => {
                                 onMouseLeave={() => setActiveIndex(null)}
                             >
                                 <defs>
-                                    {/* Solid base color */}
-                                    <linearGradient id="productionBarGradient" x1="0" y1="1" x2="0" y2="0">
-                                        <stop offset="0%" stopColor="#D97706" stopOpacity={1} />
+                                    {/* Default gradient */}
+                                    <linearGradient id="productionDefaultGradient" x1="0" y1="1" x2="0" y2="0">
+                                        <stop offset="0%" stopColor="#F59E0B" stopOpacity={0.3} />
                                         <stop offset="100%" stopColor="#F59E0B" stopOpacity={1} />
                                     </linearGradient>
-                                    {/* Active bar gradient */}
-                                    <linearGradient id="explosiveOrange" x1="0" y1="1" x2="0" y2="0">
-                                        <stop offset="0%" stopColor="#EA580C" stopOpacity={1} />
-                                        <stop offset="100%" stopColor="#FBBF24" stopOpacity={1} />
+                                    {/* Active gradient - brighter */}
+                                    <linearGradient id="productionActiveGradient" x1="0" y1="1" x2="0" y2="0">
+                                        <stop offset="0%" stopColor="#FBBF24" stopOpacity={1} />
+                                        <stop offset="50%" stopColor="#F59E0B" stopOpacity={1} />
+                                        <stop offset="100%" stopColor="#D97706" stopOpacity={1} />
+                                    </linearGradient>
+                                    {/* Dimmed gradient */}
+                                    <linearGradient id="productionDimmedGradient" x1="0" y1="1" x2="0" y2="0">
+                                        <stop offset="0%" stopColor="#E5E7EB" stopOpacity={0.3} />
+                                        <stop offset="100%" stopColor="#E5E7EB" stopOpacity={1} />
                                     </linearGradient>
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
@@ -104,18 +110,22 @@ export const ProductionAreaChart: React.FC = () => {
                                     radius={[6, 6, 0, 0]}
                                     maxBarSize={40}
                                 >
-                                    {data.map((_entry: any, index: number) => (
-                                        <Cell
-                                            key={`cell-${index}`}
-                                            fill={activeIndex === index ? 'url(#explosiveOrange)' : activeIndex !== null ? '#D1D5DB' : 'url(#productionBarGradient)'}
-                                            style={{
-                                                filter: activeIndex === index
-                                                    ? 'drop-shadow(0px 0px 6px rgba(245, 158, 11, 0.6))'
-                                                    : 'none',
-                                                transition: 'all 0.3s ease-in-out',
-                                            }}
-                                        />
-                                    ))}
+                                    {data.map((_entry: any, index: number) => {
+                                        const isActive = activeIndex === index;
+                                        const isDimmed = activeIndex !== null && activeIndex !== index;
+                                        return (
+                                            <Cell
+                                                key={`cell-${index}`}
+                                                fill={isActive ? 'url(#productionActiveGradient)' : isDimmed ? 'url(#productionDimmedGradient)' : 'url(#productionDefaultGradient)'}
+                                                style={{
+                                                    filter: isActive ? 'drop-shadow(0px 0px 8px rgba(245, 158, 11, 0.6))' : 'none',
+                                                    transform: isActive ? 'scaleX(1.05)' : 'scaleX(1)',
+                                                    transformOrigin: 'center bottom',
+                                                    transition: 'all 0.3s ease-in-out',
+                                                }}
+                                            />
+                                        );
+                                    })}
                                 </Bar>
                             </BarChart>
                         ) : (
