@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Rectangle } from 'recharts';
 import { Card } from '../ui/Card';
 import { TimeRangeSelector, type Period } from '../ui/TimeRangeSelector';
 import { useData } from '../../context/DataContext';
@@ -109,20 +109,24 @@ export const ProductionAreaChart: React.FC = () => {
                                     dataKey="value"
                                     radius={[6, 6, 0, 0]}
                                     maxBarSize={40}
+                                    fill="url(#productionDefaultGradient)"
+                                    activeBar={
+                                        <Rectangle
+                                            fill="url(#productionActiveGradient)"
+                                            stroke="#D97706"
+                                            strokeWidth={2}
+                                            radius={[6, 6, 0, 0]}
+                                            style={{ filter: 'drop-shadow(0px 0px 8px rgba(245, 158, 11, 0.6))' }}
+                                        />
+                                    }
                                 >
                                     {data.map((_entry: any, index: number) => {
-                                        const isActive = activeIndex === index;
                                         const isDimmed = activeIndex !== null && activeIndex !== index;
                                         return (
                                             <Cell
                                                 key={`cell-${index}`}
-                                                fill={isActive ? 'url(#productionActiveGradient)' : isDimmed ? 'url(#productionDimmedGradient)' : 'url(#productionDefaultGradient)'}
-                                                style={{
-                                                    filter: isActive ? 'drop-shadow(0px 0px 8px rgba(245, 158, 11, 0.6))' : 'none',
-                                                    transform: isActive ? 'scaleX(1.05)' : 'scaleX(1)',
-                                                    transformOrigin: 'center bottom',
-                                                    transition: 'all 0.3s ease-in-out',
-                                                }}
+                                                fill={isDimmed ? 'url(#productionDimmedGradient)' : 'url(#productionDefaultGradient)'}
+                                                style={{ transition: 'fill 0.2s ease-out' }}
                                             />
                                         );
                                     })}

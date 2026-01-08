@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AreaChart, Area, BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { AreaChart, Area, BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, Cell, Rectangle } from 'recharts';
 import { Card } from '../ui/Card';
 import { TimeRangeSelector, type Period } from '../ui/TimeRangeSelector';
 import { useSiteConfig } from '../../context/SiteConfigContext';
@@ -132,20 +132,24 @@ export const TrendAreaChart: React.FC = () => {
                                 dataKey="value"
                                 radius={[2, 2, 0, 0]}
                                 maxBarSize={20}
+                                fill="url(#trendDefaultGradient)"
+                                activeBar={
+                                    <Rectangle
+                                        fill="url(#trendActiveGradient)"
+                                        stroke="#6D28D9"
+                                        strokeWidth={1.5}
+                                        radius={[2, 2, 0, 0]}
+                                        style={{ filter: 'drop-shadow(0px 0px 6px rgba(139, 92, 246, 0.5))' }}
+                                    />
+                                }
                             >
                                 {data.map((_entry, index) => {
-                                    const isActive = activeIndex === index;
                                     const isDimmed = activeIndex !== null && activeIndex !== index;
                                     return (
                                         <Cell
                                             key={`cell-${index}`}
-                                            fill={isActive ? 'url(#trendActiveGradient)' : isDimmed ? 'url(#trendDimmedGradient)' : 'url(#trendDefaultGradient)'}
-                                            style={{
-                                                filter: isActive ? 'drop-shadow(0px 0px 8px rgba(139, 92, 246, 0.6))' : 'none',
-                                                transform: isActive ? 'scaleX(1.1)' : 'scaleX(1)',
-                                                transformOrigin: 'center bottom',
-                                                transition: 'all 0.3s ease-in-out',
-                                            }}
+                                            fill={isDimmed ? 'url(#trendDimmedGradient)' : 'url(#trendDefaultGradient)'}
+                                            style={{ transition: 'fill 0.2s ease-out' }}
                                         />
                                     );
                                 })}

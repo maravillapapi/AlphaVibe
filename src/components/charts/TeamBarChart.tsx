@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Rectangle } from 'recharts';
 import { Card } from '../ui/Card';
 import { TimeRangeSelector, type Period } from '../ui/TimeRangeSelector';
 import { useData } from '../../context/DataContext';
@@ -130,20 +130,24 @@ export const TeamBarChart: React.FC = () => {
                                 name="Équipe A"
                                 radius={[4, 4, 0, 0]}
                                 barSize={12}
+                                fill="url(#teamADefaultGradient)"
+                                activeBar={
+                                    <Rectangle
+                                        fill="url(#teamAActiveGradient)"
+                                        stroke="#1D4ED8"
+                                        strokeWidth={1.5}
+                                        radius={[4, 4, 0, 0]}
+                                        style={{ filter: 'drop-shadow(0px 0px 6px rgba(59, 130, 246, 0.5))' }}
+                                    />
+                                }
                             >
                                 {data.map((_entry: any, index: number) => {
-                                    const isActive = activeIndex === index;
                                     const isDimmed = activeIndex !== null && activeIndex !== index;
                                     return (
                                         <Cell
                                             key={`cellA-${index}`}
-                                            fill={isActive ? 'url(#teamAActiveGradient)' : isDimmed ? 'url(#teamDimmedGradient)' : 'url(#teamADefaultGradient)'}
-                                            style={{
-                                                filter: isActive ? 'drop-shadow(0px 0px 8px rgba(59, 130, 246, 0.6))' : 'none',
-                                                transform: isActive ? 'scaleX(1.1)' : 'scaleX(1)',
-                                                transformOrigin: 'center bottom',
-                                                transition: 'all 0.3s ease-in-out',
-                                            }}
+                                            fill={isDimmed ? 'url(#teamDimmedGradient)' : 'url(#teamADefaultGradient)'}
+                                            style={{ transition: 'fill 0.2s ease-out' }}
                                         />
                                     );
                                 })}
@@ -153,20 +157,24 @@ export const TeamBarChart: React.FC = () => {
                                 name="Équipe B"
                                 radius={[4, 4, 0, 0]}
                                 barSize={12}
+                                fill="url(#teamBDefaultGradient)"
+                                activeBar={
+                                    <Rectangle
+                                        fill="url(#teamBActiveGradient)"
+                                        stroke="#C2410C"
+                                        strokeWidth={1.5}
+                                        radius={[4, 4, 0, 0]}
+                                        style={{ filter: 'drop-shadow(0px 0px 6px rgba(249, 115, 22, 0.5))' }}
+                                    />
+                                }
                             >
                                 {data.map((_entry: any, index: number) => {
-                                    const isActive = activeIndex === index;
                                     const isDimmed = activeIndex !== null && activeIndex !== index;
                                     return (
                                         <Cell
                                             key={`cellB-${index}`}
-                                            fill={isActive ? 'url(#teamBActiveGradient)' : isDimmed ? 'url(#teamDimmedGradient)' : 'url(#teamBDefaultGradient)'}
-                                            style={{
-                                                filter: isActive ? 'drop-shadow(0px 0px 8px rgba(249, 115, 22, 0.6))' : 'none',
-                                                transform: isActive ? 'scaleX(1.1)' : 'scaleX(1)',
-                                                transformOrigin: 'center bottom',
-                                                transition: 'all 0.3s ease-in-out',
-                                            }}
+                                            fill={isDimmed ? 'url(#teamDimmedGradient)' : 'url(#teamBDefaultGradient)'}
+                                            style={{ transition: 'fill 0.2s ease-out' }}
                                         />
                                     );
                                 })}
