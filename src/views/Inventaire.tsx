@@ -6,6 +6,7 @@ import { Badge } from '../components/ui/Badge';
 import { Modal } from '../components/ui/Modal';
 import { Input, Select, Textarea } from '../components/ui/Input';
 import { StatusDot, type StatusType } from '../components/ui/StatusDot';
+import { SelectionCircle } from '../components/ui/SelectionCircle';
 import { useToast } from '../context/ToastContext';
 
 interface Equipment {
@@ -243,72 +244,71 @@ export const Inventaire: React.FC = () => {
 
             {/* Table */}
             <Card className="p-0 overflow-hidden">
-                <div className="overflow-x-auto">
-                    <table className="w-full">
-                        <thead className="bg-gray-50">
-                            <tr>
-                                <th className="py-3 px-4 w-10">
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedIds.length === filteredEquipment.length && filteredEquipment.length > 0}
-                                        onChange={toggleSelectAll}
-                                        className="w-4 h-4 rounded border-gray-300 text-accent-blue focus:ring-accent-blue/20"
-                                    />
-                                </th>
-                                <th className="text-left py-3 px-4 text-xs font-semibold text-txt-secondary uppercase">Nom</th>
-                                <th className="text-left py-3 px-4 text-xs font-semibold text-txt-secondary uppercase">Type</th>
-                                <th className="text-left py-3 px-4 text-xs font-semibold text-txt-secondary uppercase">Statut</th>
-                                {showReasonColumn && (
-                                    <th className="text-left py-3 px-4 text-xs font-semibold text-txt-secondary uppercase">Motif</th>
-                                )}
-                                <th className="text-left py-3 px-4 text-xs font-semibold text-txt-secondary uppercase">Heures</th>
-                                <th className="text-left py-3 px-4 text-xs font-semibold text-txt-secondary uppercase">Localisation</th>
-                                <th className="text-left py-3 px-4 text-xs font-semibold text-txt-secondary uppercase">Proch. Maint.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredEquipment.map((eq) => (
-                                <tr
-                                    key={eq.id}
-                                    className={`border-t border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors ${selectedIds.includes(eq.id) ? 'bg-accent-blue/5' : ''
-                                        }`}
-                                    onClick={(e) => handleRowClick(eq, e)}
-                                >
-                                    <td className="py-3 px-4">
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedIds.includes(eq.id)}
-                                            onChange={() => toggleSelectOne(eq.id)}
-                                            className="w-4 h-4 rounded border-gray-300 text-accent-blue focus:ring-accent-blue/20"
+                <div className="relative">
+                    <div className="absolute top-0 right-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none md:hidden z-10" />
+                    <div className="overflow-x-auto">
+                        <table className="w-full">
+                            <thead className="bg-gray-50">
+                                <tr>
+                                    <th className="py-3 px-4 w-10">
+                                        <SelectionCircle
+                                            checked={selectedIds.length === filteredEquipment.length && filteredEquipment.length > 0}
+                                            onChange={toggleSelectAll}
                                         />
-                                    </td>
-                                    <td className="py-3 px-4">
-                                        <div className="flex items-center gap-2">
-                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${eq.status === 'operationnel' ? 'bg-green-100' :
-                                                    eq.status === 'maintenance' ? 'bg-orange-100' : 'bg-red-100'
-                                                }`}>
-                                                <Wrench size={14} strokeWidth={1.5} className={
-                                                    eq.status === 'operationnel' ? 'text-green-600' :
-                                                        eq.status === 'maintenance' ? 'text-orange-600' : 'text-red-600'
-                                                } />
-                                            </div>
-                                            <span className="text-sm font-medium text-txt-primary">{eq.name}</span>
-                                        </div>
-                                    </td>
-                                    <td className="py-3 px-4 text-sm text-txt-secondary">{typeLabels[eq.type]}</td>
-                                    <td className="py-3 px-4">
-                                        <Badge status={statusColors[eq.status]}>{statusLabels[eq.status]}</Badge>
-                                    </td>
+                                    </th>
+                                    <th className="text-left py-3 px-4 text-xs font-semibold text-txt-secondary uppercase">Nom</th>
+                                    <th className="text-left py-3 px-4 text-xs font-semibold text-txt-secondary uppercase">Type</th>
+                                    <th className="text-left py-3 px-4 text-xs font-semibold text-txt-secondary uppercase">Statut</th>
                                     {showReasonColumn && (
-                                        <td className="py-3 px-4 text-sm text-txt-secondary italic">{eq.reason || '-'}</td>
+                                        <th className="text-left py-3 px-4 text-xs font-semibold text-txt-secondary uppercase">Motif</th>
                                     )}
-                                    <td className="py-3 px-4 text-sm text-txt-primary font-medium">{eq.totalHours.toLocaleString()}h</td>
-                                    <td className="py-3 px-4 text-sm text-txt-secondary">{eq.location}</td>
-                                    <td className="py-3 px-4 text-sm text-txt-secondary">{eq.nextMaintenanceDate}</td>
+                                    <th className="text-left py-3 px-4 text-xs font-semibold text-txt-secondary uppercase">Heures</th>
+                                    <th className="text-left py-3 px-4 text-xs font-semibold text-txt-secondary uppercase">Localisation</th>
+                                    <th className="text-left py-3 px-4 text-xs font-semibold text-txt-secondary uppercase">Proch. Maint.</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {filteredEquipment.map((eq) => (
+                                    <tr
+                                        key={eq.id}
+                                        className={`border-t border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors ${selectedIds.includes(eq.id) ? 'bg-accent-blue/5' : ''
+                                            }`}
+                                        onClick={(e) => handleRowClick(eq, e)}
+                                    >
+                                        <td className="py-3 px-4">
+                                            <SelectionCircle
+                                                checked={selectedIds.includes(eq.id)}
+                                                onChange={() => toggleSelectOne(eq.id)}
+                                            />
+                                        </td>
+                                        <td className="py-3 px-4">
+                                            <div className="flex items-center gap-2">
+                                                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${eq.status === 'operationnel' ? 'bg-green-100' :
+                                                    eq.status === 'maintenance' ? 'bg-orange-100' : 'bg-red-100'
+                                                    }`}>
+                                                    <Wrench size={14} strokeWidth={1.5} className={
+                                                        eq.status === 'operationnel' ? 'text-green-600' :
+                                                            eq.status === 'maintenance' ? 'text-orange-600' : 'text-red-600'
+                                                    } />
+                                                </div>
+                                                <span className="text-sm font-medium text-txt-primary">{eq.name}</span>
+                                            </div>
+                                        </td>
+                                        <td className="py-3 px-4 text-sm text-txt-secondary">{typeLabels[eq.type]}</td>
+                                        <td className="py-3 px-4">
+                                            <Badge status={statusColors[eq.status]}>{statusLabels[eq.status]}</Badge>
+                                        </td>
+                                        {showReasonColumn && (
+                                            <td className="py-3 px-4 text-sm text-txt-secondary italic">{eq.reason || '-'}</td>
+                                        )}
+                                        <td className="py-3 px-4 text-sm text-txt-primary font-medium">{eq.totalHours.toLocaleString()}h</td>
+                                        <td className="py-3 px-4 text-sm text-txt-secondary">{eq.location}</td>
+                                        <td className="py-3 px-4 text-sm text-txt-secondary">{eq.nextMaintenanceDate}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </Card>
 
@@ -340,7 +340,7 @@ export const Inventaire: React.FC = () => {
                             {/* Header */}
                             <div className="flex items-center gap-4">
                                 <div className={`w-14 h-14 rounded-xl flex items-center justify-center ${editData.status === 'operationnel' ? 'bg-green-100' :
-                                        editData.status === 'maintenance' ? 'bg-orange-100' : 'bg-red-100'
+                                    editData.status === 'maintenance' ? 'bg-orange-100' : 'bg-red-100'
                                     }`}>
                                     <Wrench size={24} strokeWidth={1.5} className={
                                         editData.status === 'operationnel' ? 'text-green-600' :
@@ -368,10 +368,10 @@ export const Inventaire: React.FC = () => {
                                             key={status.value}
                                             onClick={() => setEditData(prev => ({ ...prev, status: status.value }))}
                                             className={`flex-1 py-3 px-3 rounded-xl border-2 transition-all flex items-center justify-center gap-2 ${editData.status === status.value
-                                                    ? status.value === 'operationnel' ? 'bg-green-50 border-green-500'
-                                                        : status.value === 'maintenance' ? 'bg-orange-50 border-orange-500'
-                                                            : 'bg-red-50 border-red-500'
-                                                    : 'bg-white border-gray-200 hover:border-gray-300'
+                                                ? status.value === 'operationnel' ? 'bg-green-50 border-green-500'
+                                                    : status.value === 'maintenance' ? 'bg-orange-50 border-orange-500'
+                                                        : 'bg-red-50 border-red-500'
+                                                : 'bg-white border-gray-200 hover:border-gray-300'
                                                 }`}
                                         >
                                             <StatusDot status={status.dotStatus} size="md" />
@@ -422,10 +422,10 @@ export const Inventaire: React.FC = () => {
                                 key={status.value}
                                 onClick={() => setBulkStatus(status.value)}
                                 className={`w-full py-3 px-4 rounded-xl border-2 transition-all flex items-center gap-3 ${bulkStatus === status.value
-                                        ? status.value === 'operationnel' ? 'bg-green-50 border-green-500'
-                                            : status.value === 'maintenance' ? 'bg-orange-50 border-orange-500'
-                                                : 'bg-red-50 border-red-500'
-                                        : 'bg-white border-gray-200 hover:border-gray-300'
+                                    ? status.value === 'operationnel' ? 'bg-green-50 border-green-500'
+                                        : status.value === 'maintenance' ? 'bg-orange-50 border-orange-500'
+                                            : 'bg-red-50 border-red-500'
+                                    : 'bg-white border-gray-200 hover:border-gray-300'
                                     }`}
                             >
                                 <StatusDot status={status.dotStatus} size="lg" />

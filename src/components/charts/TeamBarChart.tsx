@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { Card } from '../ui/Card';
 import { TimeRangeSelector, type Period } from '../ui/TimeRangeSelector';
 import { useData } from '../../context/DataContext';
@@ -53,11 +53,24 @@ export const TeamBarChart: React.FC = () => {
 
     return (
         <Card className="p-3 sm:p-4 h-full flex flex-col">
-            {/* Header - Responsive */}
+            {/* Header - Responsive with Legend */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2 sm:gap-4">
-                <h3 className="text-sm sm:text-base font-semibold text-txt-primary break-words overflow-hidden">
-                    Production par Équipe
-                </h3>
+                <div className="flex items-center gap-3">
+                    <h3 className="text-sm md:text-base font-semibold text-gray-800 break-words">
+                        Production par Équipe
+                    </h3>
+                    {/* Inline Legend */}
+                    <div className="flex items-center gap-3 text-xs">
+                        <div className="flex items-center gap-1">
+                            <div className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+                            <span className="text-gray-600">Équipe A</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <div className="w-2.5 h-2.5 rounded-full bg-orange-500" />
+                            <span className="text-gray-600">Équipe B</span>
+                        </div>
+                    </div>
+                </div>
                 <TimeRangeSelector value={period} onChange={setPeriod} />
             </div>
 
@@ -76,30 +89,14 @@ export const TeamBarChart: React.FC = () => {
                             onMouseLeave={() => setActiveIndex(null)}
                         >
                             <defs>
-                                {/* Base gradients */}
+                                {/* Solid gradients */}
                                 <linearGradient id="teamAGradient" x1="0" y1="1" x2="0" y2="0">
-                                    <stop offset="0%" stopColor="#3B82F6" stopOpacity={0.4} />
+                                    <stop offset="0%" stopColor="#1D4ED8" stopOpacity={1} />
                                     <stop offset="100%" stopColor="#3B82F6" stopOpacity={1} />
                                 </linearGradient>
                                 <linearGradient id="teamBGradient" x1="0" y1="1" x2="0" y2="0">
-                                    <stop offset="0%" stopColor="#F97316" stopOpacity={0.4} />
-                                    <stop offset="100%" stopColor="#F97316" stopOpacity={1} />
-                                </linearGradient>
-                                {/* Explosive gradients for active bars */}
-                                <linearGradient id="explosiveBlue" x1="0" y1="1" x2="0" y2="0">
-                                    <stop offset="0%" stopColor="#1E40AF" stopOpacity={1} />
-                                    <stop offset="50%" stopColor="#3B82F6" stopOpacity={1} />
-                                    <stop offset="100%" stopColor="#93C5FD" stopOpacity={0.95} />
-                                </linearGradient>
-                                <linearGradient id="explosiveOrangeTeam" x1="0" y1="1" x2="0" y2="0">
                                     <stop offset="0%" stopColor="#C2410C" stopOpacity={1} />
-                                    <stop offset="50%" stopColor="#F97316" stopOpacity={1} />
-                                    <stop offset="100%" stopColor="#FDBA74" stopOpacity={0.95} />
-                                </linearGradient>
-                                {/* Dimmed gradient */}
-                                <linearGradient id="teamDimmedGradient" x1="0" y1="1" x2="0" y2="0">
-                                    <stop offset="0%" stopColor="#D1D5DB" stopOpacity={0.3} />
-                                    <stop offset="100%" stopColor="#E5E7EB" stopOpacity={0.6} />
+                                    <stop offset="100%" stopColor="#F97316" stopOpacity={1} />
                                 </linearGradient>
                             </defs>
                             <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
@@ -112,7 +109,6 @@ export const TeamBarChart: React.FC = () => {
                             />
                             <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 8, fill: '#9CA3AF' }} />
                             <Tooltip content={<CustomTooltip />} cursor={{ fill: 'transparent' }} />
-                            <Legend iconType="circle" iconSize={6} wrapperStyle={{ fontSize: '9px', paddingTop: '2px' }} />
                             <Bar
                                 dataKey="teamA"
                                 name="Équipe A"
@@ -121,18 +117,11 @@ export const TeamBarChart: React.FC = () => {
                             >
                                 {data.map((_entry: any, index: number) => (
                                     <Cell
-                                        key={`cellA-${index}`}
-                                        fill="transparent"
+                                        key={`cellA - ${index} `}
+                                        fill={activeIndex === index ? '#1D4ED8' : activeIndex !== null ? '#D1D5DB' : 'url(#teamAGradient)'}
                                         style={{
-                                            fill: activeIndex === index
-                                                ? 'url(#explosiveBlue)'
-                                                : activeIndex !== null
-                                                    ? 'url(#teamDimmedGradient)'
-                                                    : 'url(#teamAGradient)',
-                                            filter: activeIndex === index
-                                                ? 'drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.9)) drop-shadow(0px 0px 4px rgba(59, 130, 246, 0.6))'
-                                                : 'none',
-                                            transition: 'all 0.4s ease-in-out',
+                                            filter: activeIndex === index ? 'drop-shadow(0px 0px 4px rgba(59, 130, 246, 0.5))' : 'none',
+                                            transition: 'all 0.3s ease-in-out',
                                         }}
                                     />
                                 ))}
@@ -145,18 +134,11 @@ export const TeamBarChart: React.FC = () => {
                             >
                                 {data.map((_entry: any, index: number) => (
                                     <Cell
-                                        key={`cellB-${index}`}
-                                        fill="transparent"
+                                        key={`cellB - ${index} `}
+                                        fill={activeIndex === index ? '#C2410C' : activeIndex !== null ? '#D1D5DB' : 'url(#teamBGradient)'}
                                         style={{
-                                            fill: activeIndex === index
-                                                ? 'url(#explosiveOrangeTeam)'
-                                                : activeIndex !== null
-                                                    ? 'url(#teamDimmedGradient)'
-                                                    : 'url(#teamBGradient)',
-                                            filter: activeIndex === index
-                                                ? 'drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.9)) drop-shadow(0px 0px 4px rgba(249, 115, 22, 0.6))'
-                                                : 'none',
-                                            transition: 'all 0.4s ease-in-out',
+                                            filter: activeIndex === index ? 'drop-shadow(0px 0px 4px rgba(249, 115, 22, 0.5))' : 'none',
+                                            transition: 'all 0.3s ease-in-out',
                                         }}
                                     />
                                 ))}

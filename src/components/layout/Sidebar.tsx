@@ -12,6 +12,7 @@ const navItems = [
             { path: '/pointage', label: 'Pointage', icon: Clock, color: 'text-orange-500', module: 'pointage' as const },
             { path: '/production', label: 'Production', icon: Coins, color: 'text-amber-500', module: 'production' as const },
             { path: '/personnel', label: 'Personnel', icon: Users, color: 'text-green-500', module: 'personnel' as const },
+            { path: '/securite', label: 'Sécurité', icon: Shield, color: 'text-red-500', module: 'dashboard' as const },
         ]
     },
     {
@@ -73,15 +74,20 @@ export const Sidebar: React.FC = () => {
             </div>
 
             {/* Toggle Button */}
+            {/* Toggle Button - iOS Glass Style */}
+            {/* Toggle Button - iOS Glass Style */}
             <button
                 onClick={toggleSidebar}
-                className="absolute -right-3 top-20 w-6 h-6 bg-white border border-gray-200 rounded-full flex items-center justify-center shadow-sm hover:bg-gray-50 hover:border-gray-300 transition-all z-40"
+                className="fixed top-4 z-50 w-9 h-9 rounded-full bg-white/70 backdrop-blur-md border border-gray-200/50 shadow-sm flex items-center justify-center text-gray-700 active:scale-95 transition-all duration-300 ease-in-out"
+                style={{
+                    left: isExpanded ? '16rem' : '1.25rem', // Dynamically positioned
+                }}
                 title={isExpanded ? 'Réduire la sidebar' : 'Étendre la sidebar'}
             >
                 {isExpanded ? (
-                    <ChevronLeft size={14} className="text-txt-secondary" strokeWidth={2} />
+                    <ChevronLeft size={16} className="text-gray-700" strokeWidth={2.5} />
                 ) : (
-                    <ChevronRight size={14} className="text-txt-secondary" strokeWidth={2} />
+                    <ChevronRight size={16} className="text-gray-700" strokeWidth={2.5} />
                 )}
             </button>
 

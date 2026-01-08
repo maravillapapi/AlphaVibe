@@ -6,7 +6,7 @@ import type { KpiData } from '../../types';
 
 type Period = 'semaine' | 'mois' | 'annee';
 
-// Golden/Financial icons as SVG
+// Icons as SVG components
 const CoinsIcon: React.FC<{ className?: string }> = ({ className }) => (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="8" cy="8" r="6" /><path d="M18.09 10.37A6 6 0 1 1 10.34 18" /><path d="M7 6h1v4" /><path d="m16.71 13.88.7.71-2.82 2.82" />
@@ -35,11 +35,12 @@ const iconMap: Record<string, React.FC<{ className?: string }>> = {
     Coins: CoinsIcon, Calendar: CalendarIcon, Clock: ClockIcon, AlertTriangle: AlertIcon,
 };
 
-const backgroundColors: Record<number, string> = {
-    0: 'bg-gradient-to-br from-amber-400 to-amber-600',
-    1: 'bg-gradient-to-br from-pink-400 to-pink-600',
-    2: 'bg-gradient-to-br from-blue-400 to-blue-600',
-    3: 'bg-gradient-to-br from-red-400 to-red-600',
+// Solid background colors for icons
+const iconBgColors: Record<number, string> = {
+    0: 'bg-amber-500',   // Production Totale - Orange/Amber
+    1: 'bg-pink-500',    // Production - Pink
+    2: 'bg-blue-500',    // Heures Travaillées - Blue
+    3: 'bg-red-500',     // Incidents - Red
 };
 
 const periodLabels: Record<Period, string> = { semaine: 'Semaine', mois: 'Mois', annee: 'Année' };
@@ -70,7 +71,7 @@ export const KpiCard: React.FC<KpiCardProps> = ({ data, index }) => {
     const { getKpiValue } = useData();
 
     const Icon = iconMap[data.icon] || CoinsIcon;
-    const bgColor = backgroundColors[index] || backgroundColors[0];
+    const bgColor = iconBgColors[index] || iconBgColors[0];
 
     const dynamicValue = data.id.includes('production')
         ? getKpiValue('production', period)
@@ -84,23 +85,30 @@ export const KpiCard: React.FC<KpiCardProps> = ({ data, index }) => {
     };
 
     return (
-        <Card className="p-2 sm:p-3 relative h-full flex flex-col justify-between">
-            {/* Period Menu Button - Absolute positioned */}
-            <button
-                onClick={() => setShowMenu(!showMenu)}
-                className="absolute top-1 right-1 sm:top-2 sm:right-2 w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded hover:bg-gray-100 text-txt-tertiary hover:text-txt-secondary z-10"
-            >
-                <MoreHorizontal size={12} strokeWidth={1.5} />
-            </button>
+        <Card className="p-4 sm:p-5 flex flex-col h-full bg-white rounded-2xl shadow-sm">
+            {/* HEADER: Title + Menu */}
+            <div className="flex justify-between items-start w-full mb-3">
+                {/* Title */}
+                <h3 className="text-sm sm:text-base font-semibold text-gray-700 leading-tight">
+                    {data.label}
+                </h3>
+                {/* Menu Button */}
+                <button
+                    onClick={() => setShowMenu(!showMenu)}
+                    className="text-gray-400 hover:text-gray-600 cursor-pointer transition-colors p-1 -mr-1 -mt-1"
+                >
+                    <MoreHorizontal size={18} strokeWidth={2} />
+                </button>
+            </div>
 
             {/* Period Dropdown */}
             {showMenu && (
-                <div className="absolute top-6 sm:top-8 right-1 sm:right-2 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-20 min-w-[80px]">
+                <div className="absolute top-12 right-3 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 z-20 min-w-[90px]">
                     {(Object.keys(periodLabels) as Period[]).map((p) => (
                         <button
                             key={p}
                             onClick={() => handlePeriodChange(p)}
-                            className={`w-full px-2 sm:px-3 py-1 text-left text-[10px] sm:text-xs hover:bg-gray-50 ${period === p ? 'text-accent-blue font-medium' : 'text-txt-secondary'
+                            className={`w-full px-3 py-1.5 text-left text-xs hover:bg-gray-50 transition-colors ${period === p ? 'text-blue-600 font-semibold bg-blue-50' : 'text-gray-600'
                                 }`}
                         >
                             {periodLabels[p]}
@@ -109,28 +117,35 @@ export const KpiCard: React.FC<KpiCardProps> = ({ data, index }) => {
                 </div>
             )}
 
-            <div className="flex items-start gap-2 sm:gap-3 min-w-0">
-                <div className={`w-8 h-8 sm:w-10 sm:h-10 ${bgColor} rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm`}>
-                    <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            {/* BODY: Icon + Data */}
+            <div className="flex items-center gap-4 flex-1">
+                {/* Icon Circle */}
+                <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full ${bgColor} flex items-center justify-center flex-shrink-0 shadow-md`}>
+                    <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                 </div>
-                <div className="flex-1 min-w-0 pr-4">
-                    <p className="text-[10px] sm:text-[11px] text-txt-secondary leading-tight whitespace-normal">{data.label}</p>
-                    <div className="mt-0.5">
-                        <span className="text-base sm:text-lg font-bold text-txt-primary whitespace-nowrap">{dynamicValue}</span>
-                    </div>
+
+                {/* Value + Trend */}
+                <div className="flex flex-col min-w-0">
+                    {/* Main Value */}
+                    <span className="text-2xl sm:text-3xl font-bold text-gray-900 leading-none">
+                        {dynamicValue}
+                    </span>
+
+                    {/* Trend Badge */}
+                    {data.badge && (
+                        <div className="flex flex-col items-start md:flex-row md:items-center md:gap-1.5 mt-1.5">
+                            <span className={`text-xs sm:text-sm font-semibold ${data.badgeColor === 'green' ? 'text-emerald-500' :
+                                data.badgeColor === 'red' ? 'text-red-500' : 'text-orange-500'
+                                }`}>
+                                {data.badge}
+                            </span>
+                            <span className="text-[10px] md:text-xs text-gray-400">
+                                ({getContextLabel(period)})
+                            </span>
+                        </div>
+                    )}
                 </div>
             </div>
-
-            {data.badge && (
-                <div className="flex items-center gap-1 mt-1 sm:mt-2">
-                    <span className={`text-[9px] sm:text-[10px] font-medium ${data.badgeColor === 'green' ? 'text-accent-green' :
-                        data.badgeColor === 'red' ? 'text-red-500' : 'text-accent-orange'
-                        }`}>
-                        {data.badge}
-                    </span>
-                    <span className="text-[8px] sm:text-[9px] text-txt-tertiary">({getContextLabel(period)})</span>
-                </div>
-            )}
         </Card>
     );
 };

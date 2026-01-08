@@ -78,10 +78,10 @@ export const TrendAreaChart: React.FC = () => {
     };
 
     return (
-        <Card className="p-3 flex flex-col h-full">
+        <Card className="p-4 flex flex-col h-full">
             {/* Header - Responsive */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-1 sm:gap-2">
-                <h3 className="text-[11px] font-semibold text-txt-primary break-words overflow-hidden">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-1 sm:gap-2">
+                <h3 className="text-sm md:text-base font-semibold text-gray-800 break-words">
                     Tendances Dépenses
                 </h3>
                 <TimeRangeSelector value={period} onChange={setPeriod} size="sm" />

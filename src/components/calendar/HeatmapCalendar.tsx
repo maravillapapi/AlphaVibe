@@ -39,9 +39,9 @@ export const HeatmapCalendar: React.FC = () => {
         `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
     return (
-        <Card className="p-3 h-full flex flex-col">
-            <div className="flex items-center justify-between mb-2">
-                <h3 className="text-xs font-semibold text-txt-primary truncate">Calendrier Production</h3>
+        <Card className="p-4 h-full flex flex-col">
+            <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm md:text-base font-semibold text-gray-800">Calendrier Production</h3>
                 <div className="flex items-center gap-1">
                     <button onClick={() => setCurrentMonth(p => p > 0 ? p - 1 : 11)} className="w-5 h-5 flex items-center justify-center rounded hover:bg-gray-100">
                         <ChevronLeft size={12} strokeWidth={1.5} className="text-txt-secondary" />

@@ -30,8 +30,8 @@ export const Badge: React.FC<BadgeProps> = ({
     return (
         <span
             className={`
-        inline-flex items-center gap-1.5 px-2.5 py-1 
-        text-xs font-medium rounded-full
+        inline-flex items-center justify-center gap-1.5 px-2.5 py-1 
+        text-xs font-medium rounded-full h-auto whitespace-normal text-center
         ${styles.bg} ${styles.text}
         ${className}
       `}

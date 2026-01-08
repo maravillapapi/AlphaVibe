@@ -19,8 +19,8 @@ const colorMap: Record<string, { bg: string; icon: string }> = {
 
 export const ActivityTimeline: React.FC = () => {
     return (
-        <Card className="p-3 h-full flex flex-col">
-            <h3 className="text-xs font-semibold text-txt-primary mb-3">Flux d'Activités</h3>
+        <Card className="p-4 h-full flex flex-col">
+            <h3 className="text-sm md:text-base font-semibold text-gray-800 mb-3">Flux d'Activités</h3>
             <div className="space-y-3 flex-1 overflow-auto">
                 {auditActivities.map((activity) => {
                     const Icon = activity.icon;

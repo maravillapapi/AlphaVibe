@@ -174,43 +174,42 @@ export const Pointage: React.FC = () => {
                 <p className="text-sm text-txt-secondary capitalize">{formatDate(currentTime)}</p>
             </div>
 
-            {/* Employee Card + KPIs */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                {/* Employee Profile */}
-                <Card className="p-4 md:col-span-1">
-                    <div className="flex md:flex-col items-center gap-3 md:text-center">
-                        <Avatar name="Jean Kabongo" size="lg" />
-                        <div>
-                            <p className="font-semibold text-txt-primary">Jean Kabongo</p>
-                            <p className="text-xs text-txt-secondary">Chef d'Équipe A</p>
-                            <div className="mt-2">
-                                <p className="text-[10px] text-txt-tertiary mb-1">Heures cette semaine</p>
-                                <div className="flex items-center gap-2">
-                                    <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
-                                        <div className="h-full bg-accent-blue rounded-full" style={{ width: '60%' }} />
-                                    </div>
-                                    <span className="text-xs font-medium text-txt-primary">24h/40h</span>
+            {/* Employee Card */}
+            <Card className="p-4">
+                <div className="flex items-center gap-3">
+                    <Avatar name="Jean Kabongo" size="lg" />
+                    <div className="flex-1">
+                        <p className="font-semibold text-txt-primary">Jean Kabongo</p>
+                        <p className="text-xs text-txt-secondary">Chef d'Équipe A</p>
+                        <div className="mt-2">
+                            <p className="text-[10px] text-txt-tertiary mb-1">Heures cette semaine</p>
+                            <div className="flex items-center gap-2">
+                                <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                    <div className="h-full bg-accent-blue rounded-full" style={{ width: '60%' }} />
                                 </div>
+                                <span className="text-xs font-medium text-txt-primary">24h/40h</span>
                             </div>
                         </div>
                     </div>
-                </Card>
+                </div>
+            </Card>
 
-                {/* KPIs */}
-                <Card className="p-4 text-center">
-                    <Users size={20} className="mx-auto mb-1 text-accent-blue" strokeWidth={1.5} />
-                    <p className="text-2xl font-bold text-txt-primary">{presentCount}</p>
-                    <p className="text-xs text-txt-secondary">Présents</p>
+            {/* KPIs - 3 columns on mobile */}
+            <div className="grid grid-cols-3 gap-2">
+                <Card className="p-2 sm:p-4 text-center">
+                    <Users size={16} className="mx-auto mb-1 text-accent-blue" strokeWidth={1.5} />
+                    <p className="text-lg sm:text-2xl font-bold text-txt-primary">{presentCount}</p>
+                    <p className="text-[10px] sm:text-xs text-txt-secondary">Présents</p>
                 </Card>
-                <Card className="p-4 text-center">
-                    <CheckCircle size={20} className="mx-auto mb-1 text-accent-green" strokeWidth={1.5} />
-                    <p className="text-2xl font-bold text-txt-primary">{departedCount}</p>
-                    <p className="text-xs text-txt-secondary">Partis</p>
+                <Card className="p-2 sm:p-4 text-center">
+                    <CheckCircle size={16} className="mx-auto mb-1 text-accent-green" strokeWidth={1.5} />
+                    <p className="text-lg sm:text-2xl font-bold text-txt-primary">{departedCount}</p>
+                    <p className="text-[10px] sm:text-xs text-txt-secondary">Partis</p>
                 </Card>
-                <Card className="p-4 text-center">
-                    <AlertCircle size={20} className="mx-auto mb-1 text-accent-orange" strokeWidth={1.5} />
-                    <p className="text-2xl font-bold text-txt-primary">{lateCount}</p>
-                    <p className="text-xs text-txt-secondary">Retards</p>
+                <Card className="p-2 sm:p-4 text-center">
+                    <AlertCircle size={16} className="mx-auto mb-1 text-accent-orange" strokeWidth={1.5} />
+                    <p className="text-lg sm:text-2xl font-bold text-txt-primary">{lateCount}</p>
+                    <p className="text-[10px] sm:text-xs text-txt-secondary">Retards</p>
                 </Card>
             </div>
 

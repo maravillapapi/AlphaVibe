@@ -37,8 +37,8 @@ export const ForecastGrid: React.FC = () => {
     const { forecasts } = useData();
 
     return (
-        <Card className="p-3 h-full flex flex-col">
-            <h3 className="text-sm font-semibold text-txt-primary mb-3">Prévisions vs Réalité</h3>
+        <Card className="p-4 h-full flex flex-col">
+            <h3 className="text-sm md:text-base font-semibold text-gray-800 mb-3">Prévisions vs Réalité</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1">
                 {forecasts.map((forecast) => {
                     const percentage = (forecast.actual / forecast.planned) * 100;

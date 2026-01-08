@@ -31,8 +31,8 @@ export const AlertList: React.FC = () => {
     const { alerts } = useData();
 
     return (
-        <Card className="p-3 h-full flex flex-col">
-            <h3 className="text-xs font-semibold text-txt-primary mb-2 truncate">Alertes Récentes</h3>
+        <Card className="p-4 h-full flex flex-col">
+            <h3 className="text-sm md:text-base font-semibold text-gray-800 mb-3">Alertes Récentes</h3>
             <div className="space-y-1.5 flex-1 overflow-auto">
                 {alerts.map((alert) => <AlertItem key={alert.id} alert={alert} />)}
             </div>

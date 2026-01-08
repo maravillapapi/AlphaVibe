@@ -45,9 +45,9 @@ export const MachinePerformanceChart: React.FC = () => {
     const dimmedGradient = 'linear-gradient(180deg, #E5E7EB 0%, rgba(229, 231, 235, 0.3) 100%)';
 
     return (
-        <Card className="p-3 h-full flex flex-col">
-            <div className="flex items-center justify-between mb-2 gap-1">
-                <h3 className="text-[10px] font-semibold text-txt-primary truncate">Performance Machine</h3>
+        <Card className="p-4 h-full flex flex-col">
+            <div className="flex items-center justify-between mb-3 gap-2">
+                <h3 className="text-sm md:text-base font-semibold text-gray-800">Performance Machine</h3>
                 <div className="relative">
                     <button
                         onClick={() => setShowDropdown(!showDropdown)}

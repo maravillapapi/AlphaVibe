@@ -55,7 +55,7 @@ export const ProductionAreaChart: React.FC = () => {
         <Card className="p-3 sm:p-4 h-full flex flex-col">
             {/* Header - Responsive */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2 sm:gap-4">
-                <h3 className="text-sm sm:text-base font-semibold text-txt-primary break-words overflow-hidden">
+                <h3 className="text-sm md:text-base font-semibold text-gray-800 break-words">
                     Production Totale
                 </h3>
                 <TimeRangeSelector value={period} onChange={setPeriod} />
@@ -78,21 +78,15 @@ export const ProductionAreaChart: React.FC = () => {
                                 onMouseLeave={() => setActiveIndex(null)}
                             >
                                 <defs>
-                                    {/* Base gradient */}
+                                    {/* Solid base color */}
                                     <linearGradient id="productionBarGradient" x1="0" y1="1" x2="0" y2="0">
-                                        <stop offset="0%" stopColor="#F59E0B" stopOpacity={0.4} />
+                                        <stop offset="0%" stopColor="#D97706" stopOpacity={1} />
                                         <stop offset="100%" stopColor="#F59E0B" stopOpacity={1} />
                                     </linearGradient>
-                                    {/* Explosive gradient for active bar */}
+                                    {/* Active bar gradient */}
                                     <linearGradient id="explosiveOrange" x1="0" y1="1" x2="0" y2="0">
-                                        <stop offset="0%" stopColor="#FF4500" stopOpacity={1} />
-                                        <stop offset="50%" stopColor="#FF6B00" stopOpacity={1} />
-                                        <stop offset="100%" stopColor="#FFD700" stopOpacity={0.95} />
-                                    </linearGradient>
-                                    {/* Dimmed gradient for inactive bars */}
-                                    <linearGradient id="dimmedGradient" x1="0" y1="1" x2="0" y2="0">
-                                        <stop offset="0%" stopColor="#D1D5DB" stopOpacity={0.3} />
-                                        <stop offset="100%" stopColor="#E5E7EB" stopOpacity={0.6} />
+                                        <stop offset="0%" stopColor="#EA580C" stopOpacity={1} />
+                                        <stop offset="100%" stopColor="#FBBF24" stopOpacity={1} />
                                     </linearGradient>
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
@@ -113,17 +107,12 @@ export const ProductionAreaChart: React.FC = () => {
                                     {data.map((_entry: any, index: number) => (
                                         <Cell
                                             key={`cell-${index}`}
-                                            fill="transparent"
+                                            fill={activeIndex === index ? 'url(#explosiveOrange)' : activeIndex !== null ? '#D1D5DB' : 'url(#productionBarGradient)'}
                                             style={{
-                                                fill: activeIndex === index
-                                                    ? 'url(#explosiveOrange)'
-                                                    : activeIndex !== null
-                                                        ? 'url(#dimmedGradient)'
-                                                        : 'url(#productionBarGradient)',
                                                 filter: activeIndex === index
-                                                    ? 'drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.9)) drop-shadow(0px 0px 6px rgba(255, 165, 0, 0.6))'
+                                                    ? 'drop-shadow(0px 0px 6px rgba(245, 158, 11, 0.6))'
                                                     : 'none',
-                                                transition: 'all 0.4s ease-in-out',
+                                                transition: 'all 0.3s ease-in-out',
                                             }}
                                         />
                                     ))}

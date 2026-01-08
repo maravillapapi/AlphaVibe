@@ -1,7 +1,6 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import { Card } from '../ui/Card';
-import { useData } from '../../context/DataContext';
 
 interface GalleryImage {
     id: number;
@@ -24,9 +23,9 @@ export const GalleryGrid: React.FC = () => {
 
     return (
         <>
-            <Card className="p-3 h-full flex flex-col">
-                <h3 className="text-[11px] font-semibold text-txt-primary mb-2 truncate">Galerie de Chantier</h3>
-                <div className="grid grid-cols-2 gap-1.5 flex-1">
+            <Card className="p-4 h-full flex flex-col">
+                <h3 className="text-sm md:text-base font-semibold text-gray-800 mb-auto">Galerie de Chantier</h3>
+                <div className="grid grid-cols-2 gap-0.5 mt-3">
                     {galleryImages.map((img) => (
                         <div
                             key={img.id}

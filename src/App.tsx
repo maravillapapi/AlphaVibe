@@ -17,6 +17,7 @@ import { Achats } from './views/Achats';
 import { Depenses } from './views/Depenses';
 import { Parametres } from './views/Parametres';
 import { Admin } from './views/Admin';
+import { Securite } from './views/Securite';
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ module: string; children: React.ReactNode }> = ({ module, children }) => {
@@ -71,6 +72,7 @@ function App() {
                                         <Route path="/depenses" element={<ProtectedRoute module="depenses"><Depenses /></ProtectedRoute>} />
                                         <Route path="/parametres" element={<ProtectedRoute module="parametres"><Parametres /></ProtectedRoute>} />
                                         <Route path="/admin" element={<ProtectedRoute module="admin"><Admin /></ProtectedRoute>} />
+                                        <Route path="/securite" element={<Securite />} />
                                         <Route path="/compte" element={<Compte />} />
                                         <Route path="/403" element={<Forbidden />} />
                                     </Route>

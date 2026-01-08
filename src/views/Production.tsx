@@ -140,40 +140,43 @@ export const Production: React.FC = () => {
             {/* Table with proper padding */}
             <Card className="p-6">
                 <h2 className="text-lg font-semibold text-txt-primary mb-4">Entrées de production</h2>
-                <div className="overflow-x-auto">
-                    <table className="w-full">
-                        <thead>
-                            <tr className="border-b border-gray-100">
-                                <th className="text-left py-3 px-4 text-xs font-medium text-txt-secondary uppercase">Date</th>
-                                <th className="text-left py-3 px-4 text-xs font-medium text-txt-secondary uppercase">Quantité</th>
-                                <th className="text-left py-3 px-4 text-xs font-medium text-txt-secondary uppercase">Pureté</th>
-                                <th className="text-left py-3 px-4 text-xs font-medium text-txt-secondary uppercase">Équipe</th>
-                                <th className="text-left py-3 px-4 text-xs font-medium text-txt-secondary uppercase">Quart</th>
-                                <th className="text-left py-3 px-4 text-xs font-medium text-txt-secondary uppercase">Statut</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {entries.map((entry) => (
-                                <tr key={entry.id} className="border-b border-gray-50 hover:bg-gray-50 cursor-pointer transition-colors">
-                                    <td className="py-3 px-4 text-sm text-txt-primary">{entry.date}</td>
-                                    <td className="py-3 px-4 text-sm font-medium text-txt-primary">{entry.quantity}</td>
-                                    <td className="py-3 px-4 text-sm">
-                                        <span className={getPurityColor(entry.purity)}>{entry.purity}%</span>
-                                    </td>
-                                    <td className="py-3 px-4">
-                                        <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${entry.team === 'A' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'
-                                            }`}>
-                                            Équipe {entry.team}
-                                        </span>
-                                    </td>
-                                    <td className="py-3 px-4 text-sm text-txt-secondary">{entry.shift}</td>
-                                    <td className="py-3 px-4">
-                                        <Badge status="success">Validé</Badge>
-                                    </td>
+                <div className="relative">
+                    <div className="absolute top-0 right-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none md:hidden z-10" />
+                    <div className="overflow-x-auto">
+                        <table className="w-full">
+                            <thead>
+                                <tr className="border-b border-gray-100">
+                                    <th className="text-left py-3 px-4 text-xs font-medium text-txt-secondary uppercase">Date</th>
+                                    <th className="text-left py-3 px-4 text-xs font-medium text-txt-secondary uppercase">Quantité</th>
+                                    <th className="text-left py-3 px-4 text-xs font-medium text-txt-secondary uppercase">Pureté</th>
+                                    <th className="text-left py-3 px-4 text-xs font-medium text-txt-secondary uppercase">Équipe</th>
+                                    <th className="text-left py-3 px-4 text-xs font-medium text-txt-secondary uppercase">Quart</th>
+                                    <th className="text-left py-3 px-4 text-xs font-medium text-txt-secondary uppercase">Statut</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {entries.map((entry) => (
+                                    <tr key={entry.id} className="border-b border-gray-50 hover:bg-gray-50 cursor-pointer transition-colors">
+                                        <td className="py-3 px-4 text-sm text-txt-primary">{entry.date}</td>
+                                        <td className="py-3 px-4 text-sm font-medium text-txt-primary">{entry.quantity}</td>
+                                        <td className="py-3 px-4 text-sm">
+                                            <span className={getPurityColor(entry.purity)}>{entry.purity}%</span>
+                                        </td>
+                                        <td className="py-3 px-4">
+                                            <span className={`px-2 py-0.5 text-xs font-medium rounded-full whitespace-nowrap min-w-fit ${entry.team === 'A' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'
+                                                }`}>
+                                                Équipe {entry.team}
+                                            </span>
+                                        </td>
+                                        <td className="py-3 px-4 text-sm text-txt-secondary">{entry.shift}</td>
+                                        <td className="py-3 px-4">
+                                            <Badge status="success">Validé</Badge>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </Card>
 
