@@ -22,7 +22,8 @@ export const Card: React.FC<CardProps> = ({
     return (
         <div
             className={`
-                bg-white rounded-xl shadow-md
+                bg-[var(--background-card)] rounded-xl shadow-md
+                border border-[var(--border-light)]
                 ${hover ? 'hover-lift' : ''}
                 ${animated ? `animate-fade-in-up ${delayClass}` : ''}
                 ${onClick ? 'cursor-pointer' : ''}

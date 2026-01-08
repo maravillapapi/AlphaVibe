@@ -22,7 +22,7 @@ const MainLayoutContent: React.FC = () => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-surface-secondary">
+        <div className="min-h-screen bg-[var(--background-primary)] transition-colors duration-300">
             {/* Simulation Banner */}
             {isSimulating && (
                 <div className="fixed top-0 left-0 right-0 bg-orange-500 text-white text-center py-2 text-sm font-medium z-[60]">

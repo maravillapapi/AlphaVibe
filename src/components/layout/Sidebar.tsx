@@ -4,6 +4,7 @@ import { LayoutDashboard, Clock, Coins, Users, Package, BarChart3, FileText, Sho
 import { useSiteConfig } from '../../context/SiteConfigContext';
 import { useAuth } from '../../context/AuthContext';
 import { useSidebar } from '../../context/SidebarContext';
+import { ThemeToggle } from '../ui/ThemeToggle';
 
 const navItems = [
     { section: 'PRINCIPAL', items: [{ path: '/', label: 'Tableau de bord', icon: LayoutDashboard, color: 'text-accent-blue', module: 'dashboard' as const }] },
@@ -51,7 +52,7 @@ export const Sidebar: React.FC = () => {
     return (
         <aside className={`
             ${isExpanded ? 'w-72' : 'w-20'} 
-            bg-white h-screen flex flex-col border-r border-gray-100 fixed left-0 top-0 overflow-hidden z-30
+            bg-[var(--background-secondary)] h-screen flex flex-col border-r border-[var(--border-color)] fixed left-0 top-0 overflow-hidden z-30
             transition-all duration-300 ease-in-out
         `}>
             {/* Logo - Golden Branding */}
@@ -135,14 +136,25 @@ export const Sidebar: React.FC = () => {
                 ))}
             </nav>
 
+            {/* Theme Toggle */}
+            <div className={`px-4 py-2 border-t border-[var(--border-color)]`}>
+                {isExpanded ? (
+                    <ThemeToggle />
+                ) : (
+                    <div className="flex justify-center">
+                        <ThemeToggle compact />
+                    </div>
+                )}
+            </div>
+
             {/* User Profile */}
-            <div className="p-4 border-t border-gray-100">
+            <div className="p-4 border-t border-[var(--border-color)]">
                 <div className={`flex items-center ${isExpanded ? 'gap-3' : 'justify-center'}`}>
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0">AP</div>
                     {isExpanded && (
                         <div className="flex-1 min-w-0">
-                            <p className="text-sm font-semibold text-txt-primary truncate">Administrateur</p>
-                            <p className="text-xs text-txt-tertiary capitalize">{effectiveRole}</p>
+                            <p className="text-sm font-semibold text-[var(--text-primary)] truncate">Administrateur</p>
+                            <p className="text-xs text-[var(--text-tertiary)] capitalize">{effectiveRole}</p>
                         </div>
                     )}
                 </div>

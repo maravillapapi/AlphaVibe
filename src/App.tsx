@@ -4,6 +4,7 @@ import { SiteConfigProvider } from './context/SiteConfigContext';
 import { DataProvider } from './context/DataContext';
 import { PurchaseProvider } from './context/PurchaseContext';
 import { ToastProvider } from './context/ToastContext';
+import { ThemeProvider } from './context/ThemeContext';
 import ScrollToTop from './components/utils/ScrollToTop';
 import { MainLayout } from './components/layout/MainLayout';
 import { Dashboard } from './views/Dashboard';
@@ -52,37 +53,39 @@ const Forbidden = () => (
 
 function App() {
     return (
-        <AuthProvider>
-            <SiteConfigProvider>
-                <DataProvider>
-                    <PurchaseProvider>
-                        <ToastProvider>
-                            <BrowserRouter>
-                                <ScrollToTop />
-                                <Routes>
-                                    <Route element={<MainLayout />}>
-                                        <Route path="/" element={<Dashboard />} />
-                                        <Route path="/pointage" element={<ProtectedRoute module="pointage"><Pointage /></ProtectedRoute>} />
-                                        <Route path="/production" element={<ProtectedRoute module="production"><Production /></ProtectedRoute>} />
-                                        <Route path="/personnel" element={<ProtectedRoute module="personnel"><Personnel /></ProtectedRoute>} />
-                                        <Route path="/inventaire" element={<ProtectedRoute module="inventaire"><Inventaire /></ProtectedRoute>} />
-                                        <Route path="/analytiques" element={<ProtectedRoute module="analytiques"><Analytiques /></ProtectedRoute>} />
-                                        <Route path="/rapports" element={<ProtectedRoute module="rapports"><Rapports /></ProtectedRoute>} />
-                                        <Route path="/achats" element={<ProtectedRoute module="achats"><Achats /></ProtectedRoute>} />
-                                        <Route path="/depenses" element={<ProtectedRoute module="depenses"><Depenses /></ProtectedRoute>} />
-                                        <Route path="/parametres" element={<ProtectedRoute module="parametres"><Parametres /></ProtectedRoute>} />
-                                        <Route path="/admin" element={<ProtectedRoute module="admin"><Admin /></ProtectedRoute>} />
-                                        <Route path="/securite" element={<Securite />} />
-                                        <Route path="/compte" element={<Compte />} />
-                                        <Route path="/403" element={<Forbidden />} />
-                                    </Route>
-                                </Routes>
-                            </BrowserRouter>
-                        </ToastProvider>
-                    </PurchaseProvider>
-                </DataProvider>
-            </SiteConfigProvider>
-        </AuthProvider>
+        <ThemeProvider>
+            <AuthProvider>
+                <SiteConfigProvider>
+                    <DataProvider>
+                        <PurchaseProvider>
+                            <ToastProvider>
+                                <BrowserRouter>
+                                    <ScrollToTop />
+                                    <Routes>
+                                        <Route element={<MainLayout />}>
+                                            <Route path="/" element={<Dashboard />} />
+                                            <Route path="/pointage" element={<ProtectedRoute module="pointage"><Pointage /></ProtectedRoute>} />
+                                            <Route path="/production" element={<ProtectedRoute module="production"><Production /></ProtectedRoute>} />
+                                            <Route path="/personnel" element={<ProtectedRoute module="personnel"><Personnel /></ProtectedRoute>} />
+                                            <Route path="/inventaire" element={<ProtectedRoute module="inventaire"><Inventaire /></ProtectedRoute>} />
+                                            <Route path="/analytiques" element={<ProtectedRoute module="analytiques"><Analytiques /></ProtectedRoute>} />
+                                            <Route path="/rapports" element={<ProtectedRoute module="rapports"><Rapports /></ProtectedRoute>} />
+                                            <Route path="/achats" element={<ProtectedRoute module="achats"><Achats /></ProtectedRoute>} />
+                                            <Route path="/depenses" element={<ProtectedRoute module="depenses"><Depenses /></ProtectedRoute>} />
+                                            <Route path="/parametres" element={<ProtectedRoute module="parametres"><Parametres /></ProtectedRoute>} />
+                                            <Route path="/admin" element={<ProtectedRoute module="admin"><Admin /></ProtectedRoute>} />
+                                            <Route path="/securite" element={<Securite />} />
+                                            <Route path="/compte" element={<Compte />} />
+                                            <Route path="/403" element={<Forbidden />} />
+                                        </Route>
+                                    </Routes>
+                                </BrowserRouter>
+                            </ToastProvider>
+                        </PurchaseProvider>
+                    </DataProvider>
+                </SiteConfigProvider>
+            </AuthProvider>
+        </ThemeProvider>
     );
 }
 
