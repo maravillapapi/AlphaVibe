@@ -12,7 +12,7 @@ import { Production } from './views/Production';
 import { Personnel } from './views/Personnel';
 import { Inventaire } from './views/Inventaire';
 import { Analytiques } from './views/Analytiques';
-import { Rapports } from './views/Rapports';
+import { Rapports } from './views/Rapports_TEMP';
 import { Achats } from './views/Achats';
 import { Depenses } from './views/Depenses';
 import { Parametres } from './views/Parametres';
