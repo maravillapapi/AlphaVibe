@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MoreHorizontal } from 'lucide-react';
 import { Card } from '../ui/Card';
+import { AnimatedCounter } from '../ui/AnimatedCounter';
 import { useData } from '../../context/DataContext';
 import type { KpiData } from '../../types';
 
@@ -126,10 +127,12 @@ export const KpiCard: React.FC<KpiCardProps> = ({ data, index }) => {
 
                 {/* Value + Trend */}
                 <div className="flex flex-col min-w-0">
-                    {/* Main Value */}
-                    <span className="text-2xl sm:text-3xl font-bold text-gray-900 leading-none">
-                        {dynamicValue}
-                    </span>
+                    {/* Main Value - Animated */}
+                    <AnimatedCounter
+                        value={dynamicValue}
+                        className="text-2xl sm:text-3xl font-bold text-gray-900 leading-none"
+                        duration={1200}
+                    />
 
                     {/* Trend Badge */}
                     {data.badge && (

@@ -53,7 +53,7 @@ export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
                             >
                                 <Bell size={20} className="text-txt-secondary" strokeWidth={1.5} />
                                 {unreadCount > 0 && (
-                                    <span className="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] bg-red-500 rounded-full flex items-center justify-center text-[10px] font-bold text-white px-1">
+                                    <span className="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] bg-red-500 rounded-full flex items-center justify-center text-[10px] font-bold text-white px-1 animate-pulse-badge">
                                         {unreadCount}
                                     </span>
                                 )}

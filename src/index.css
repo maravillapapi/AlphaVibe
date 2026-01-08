@@ -242,3 +242,181 @@ textarea:focus-visible {
 .pb-safe {
     padding-bottom: env(safe-area-inset-bottom, 16px);
 }
+
+/* ==================== PREMIUM ANIMATIONS ==================== */
+
+/* 1. Cascade Entrance Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.4s ease-out forwards;
+    opacity: 0;
+}
+
+/* Staggered delays for cascade effect */
+.animate-delay-1 { animation-delay: 0.05s; }
+.animate-delay-2 { animation-delay: 0.1s; }
+.animate-delay-3 { animation-delay: 0.15s; }
+.animate-delay-4 { animation-delay: 0.2s; }
+.animate-delay-5 { animation-delay: 0.25s; }
+.animate-delay-6 { animation-delay: 0.3s; }
+.animate-delay-7 { animation-delay: 0.35s; }
+.animate-delay-8 { animation-delay: 0.4s; }
+
+/* 2. Hover Lift Effect */
+.hover-lift {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+}
+
+.hover-lift:active {
+    transform: translateY(-2px);
+}
+
+/* 3. Pulse Notification Badge */
+@keyframes pulseBadge {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+    }
+}
+
+.animate-pulse-badge {
+    animation: pulseBadge 2s ease-in-out infinite;
+}
+
+/* 4. Shimmer Loading Effect */
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.animate-shimmer {
+    background: linear-gradient(
+        90deg,
+        #f0f0f0 25%,
+        #e0e0e0 50%,
+        #f0f0f0 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+/* 5. Page Fade Transition */
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-page-enter {
+    animation: pageFadeIn 0.3s ease-out;
+}
+
+/* 6. Button Press Effect */
+.btn-press {
+    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+}
+
+.btn-press:hover {
+    transform: scale(1.02);
+}
+
+.btn-press:active {
+    transform: scale(0.97);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 7. Scale Bounce on Hover */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.animate-bounce-in {
+    animation: bounceIn 0.4s ease-out forwards;
+}
+
+/* 8. Glow Effect */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+    }
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* 9. Spin Animation */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin-slow {
+    animation: spin 3s linear infinite;
+}
+
+/* 10. Counter Number Animation Helper */
+.counter-animate {
+    display: inline-block;
+    transition: all 0.3s ease-out;
+}
+
+/* Card micro-interaction */
+.card-interactive {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.card-interactive:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.12);
+}
+
+/* Smooth color transitions */
+.color-transition {
+    transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out;
+}

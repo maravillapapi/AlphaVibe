@@ -14,56 +14,68 @@ import { ObjectiveCard, PurityCard } from '../components/dashboard/StatCards';
 
 export const Dashboard: React.FC = () => {
     return (
-        <div className="space-y-3">
+        <div className="space-y-3 animate-page-enter">
             {/* Row 1: KPIs */}
-            <KpiGrid />
+            <div className="animate-fade-in-up animate-delay-1">
+                <KpiGrid />
+            </div>
 
             {/* Row 2: Main Bento Grid - Elastic & Mobile-First */}
             <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-3">
                 {/* Left: Production Chart */}
-                <div className="md:col-span-6 lg:col-span-5 min-h-[280px]">
+                <div className="md:col-span-6 lg:col-span-5 min-h-[280px] animate-fade-in-up animate-delay-2">
                     <ProductionAreaChart />
                 </div>
 
                 {/* Center: Trends + Gauges */}
                 <div className="md:col-span-3 lg:col-span-3 flex flex-col gap-3">
-                    <TrendAreaChart />
-                    <ObjectiveCard />
-                    <div className="flex-1"><PurityCard /></div>
+                    <div className="animate-fade-in-up animate-delay-3">
+                        <TrendAreaChart />
+                    </div>
+                    <div className="animate-fade-in-up animate-delay-4">
+                        <ObjectiveCard />
+                    </div>
+                    <div className="flex-1 animate-fade-in-up animate-delay-5">
+                        <PurityCard />
+                    </div>
                 </div>
 
                 {/* Right: Expenses + Alerts */}
                 <div className="md:col-span-3 lg:col-span-4 flex flex-col gap-3">
-                    <ExpensesPieChart />
-                    <div className="flex-1"><AlertList /></div>
+                    <div className="animate-fade-in-up animate-delay-3">
+                        <ExpensesPieChart />
+                    </div>
+                    <div className="flex-1 animate-fade-in-up animate-delay-4">
+                        <AlertList />
+                    </div>
                 </div>
             </div>
 
             {/* Row 3: Team + Machines + Gallery + Activity */}
             <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-3">
-                <div className="md:col-span-6 lg:col-span-5 min-h-[250px]">
+                <div className="md:col-span-6 lg:col-span-5 min-h-[250px] animate-fade-in-up animate-delay-5">
                     <TeamBarChart />
                 </div>
 
-                <div className="md:col-span-3 lg:col-span-2 min-h-[200px]">
+                <div className="md:col-span-3 lg:col-span-2 min-h-[200px] animate-fade-in-up animate-delay-6">
                     <MachinePerformanceChart />
                 </div>
 
-                <div className="md:col-span-3 lg:col-span-2">
+                <div className="md:col-span-3 lg:col-span-2 animate-fade-in-up animate-delay-6">
                     <GalleryGrid />
                 </div>
 
-                <div className="md:col-span-6 lg:col-span-3">
+                <div className="md:col-span-6 lg:col-span-3 animate-fade-in-up animate-delay-7">
                     <ActivityTimeline />
                 </div>
             </div>
 
             {/* Row 4: Calendar + Forecasts */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
-                <div className="lg:col-span-5">
+                <div className="lg:col-span-5 animate-fade-in-up animate-delay-7">
                     <HeatmapCalendar />
                 </div>
-                <div className="lg:col-span-7">
+                <div className="lg:col-span-7 animate-fade-in-up animate-delay-8">
                     <ForecastGrid />
                 </div>
             </div>

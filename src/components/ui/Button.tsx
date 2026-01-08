@@ -36,7 +36,7 @@ export const Button: React.FC<ButtonProps> = ({
     return (
         <button
             className={`
-        inline-flex items-center justify-center font-medium rounded-xl transition-colors
+        inline-flex items-center justify-center font-medium rounded-xl transition-colors btn-press
         ${variants[variant]}
         ${sizes[size]}
         ${fullWidth ? 'w-full' : ''}
